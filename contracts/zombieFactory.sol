@@ -7,6 +7,7 @@ contract ZombieFactory  {
    uint dnaDigits = 16;
    uint dnaModulus = 10 ** dnaDigits;
 
+   event NewZombie(uint id, string name, uint dna);
 
    struct Zombie {
        string name;
@@ -17,7 +18,8 @@ contract ZombieFactory  {
 
 
    function _createZombie(string memory _name, uint _dna) private{
-       zombies.push(Zombie(_name, _dna));
+       uint id = zombies.push(Zombie(_name, _dna));
+       emit NewZombie(id, _name, _dna);
    }
 
    function _generateRandomDna(string memory _str) private view returns (uint){
